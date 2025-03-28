@@ -4,9 +4,9 @@ import TextForm from "./Componants/TextForm";
 function App() {
   return (
     <>
-      <Navbar Title = "Home" Products = "Products" Contact = "Contact"  Feedback = "Feedback"/>
+      <Navbar item1 = "Home" item2 = "Products" item3 = "Contact"  item = "Feedback"/>
+            <TextForm/>
       
-      <TextForm/>
     </>
   );
 }
