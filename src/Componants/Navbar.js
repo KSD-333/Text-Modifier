@@ -6,7 +6,7 @@ export default function Navbar(props) {
     <div className={`container-fluid bg-${props.mode} text-${props.mode === 'light' ? 'dark' : 'light'}`}>
       <ul className="nav nav-tabs">
         <li className="nav-item" >
-          <a className="nav-link active" aria-current="page" href="/" >
+          <a className={`container-fluid bg-${props.mode} text-${props.mode === 'light' ? 'dark' : 'light'} nav-link active`} aria-current="page" href="/" >
             {props.item1}
           </a>
         </li>
