@@ -5,13 +5,13 @@ export default function Navbar(props) {
   return (
     <div className={`container-fluid bg-${props.mode} text-${props.mode === 'light' ? 'dark' : 'light'}`}>
       <ul className="nav nav-tabs">
-        <li className="nav-item">
-          <a className="nav-link active" aria-current="page" href="/">
+        <li className="nav-item" >
+          <a className="nav-link active" aria-current="page" href="/" >
             {props.item1}
           </a>
         </li>
 
-        
+        {/* Toggle Button */}
         <div className="form-check form-switch" style={{ marginLeft: "auto", marginRight: "10px" }}>
           <input
             className="form-check-input"

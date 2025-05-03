@@ -24,17 +24,50 @@ export default function TextForm(props) {
     props.showAlert("Text Cleared!", "danger");
   };
 
+
   const copyToClipboard = () => {
-    textareaRef.current.select();
-    navigator.clipboard
-      .writeText(textareaRef.current.value)
-      .then(() => {
-        props.showAlert("Copied to clipboard!", "success");
-      })
-      .catch((err) => {
-        props.showAlert("Failed to copy!", "danger");
-      });
+    if (navigator.clipboard && window.isSecureContext) {
+         navigator.clipboard.writeText(Text)
+        .then(() => props.showAlert("Copied to clipboard!" , "success"))
+        .catch((err) => console.error("Clipboard copy failed:", err));
+    } else {
+      
+      const textArea = document.createElement("textarea");
+      textArea.value = Text;
+     
+      textArea.style.position = "fixed";
+      textArea.style.left = "-9999px";
+      textArea.style.top = "0";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+  
+      try {
+        const success = document.execCommand("copy");
+        if (success) {
+          alert("Copied to clipboard!");
+        } else {
+          alert("Failed to copy text.");
+        }
+      } catch (err) {
+        console.error("Fallback: Oops, unable to copy", err);
+      }
+  
+      document.body.removeChild(textArea);
+    }
   };
+
+  const voice = () => {
+    const speech = new SpeechSynthesisUtterance(Text);
+    speech.lang = "en-US"; 
+    speech.rate = 1; 
+    speech.pitch = 1;
+    window.speechSynthesis.speak(speech);
+  }
+ 
+
+  
+  
 
   const HandleChange = (event) => {
     setText(event.target.value);
@@ -63,6 +96,7 @@ export default function TextForm(props) {
       <button className="btn btn-primary mx-1" onClick={Reverse}>Reverse</button>
       <button className="btn btn-primary mx-1" onClick={Clear}>Clear</button>
       <button className="btn btn-primary mx-1" onClick={copyToClipboard}>Copy</button>
+      <button className="btn btn-primary mx-1" onClick={voice}>Read </button>
 
       <div className="container my-3">
         <p>
