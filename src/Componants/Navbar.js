@@ -2,11 +2,15 @@ import React from "react";
 import propTypes from "prop-types";
 
 export default function Navbar(props) {
+  const  style = {
+    color: props.mode === "light" ? "black" : "white",
+    backgroundColor: props.mode === "light" ? "white" : "#121212",
+  };
   return (
-    <div className={`container-fluid bg-${props.mode} text-${props.mode === 'light' ? 'dark' : 'light'}`}>
+    <div style={style}>
       <ul className="nav nav-tabs">
         <li className="nav-item" >
-          <a className={`container-fluid bg-${props.mode} text-${props.mode === 'light' ? 'dark' : 'light'} nav-link active`} aria-current="page" href="/" >
+          <a className="nav-link active" style={style} aria-current="page" href="/" >
             {props.item1}
           </a>
         </li>

@@ -4,12 +4,12 @@ import Alearts from "./Componants/Alearts";
 import TextForm from "./Componants/TextForm";
 
 function App() {
-  const [mode, setMode] = useState("light"); // Light or dark mode
+  const [mode, setMode] = useState("light"); 
   const [alert, setAlert] = useState(null);
 
   const showAlert = (message, type) => {
     setAlert({ msg: message, type: type });
-    setTimeout(() => setAlert(null), 3000);
+    setTimeout(() => setAlert(null), 1500);
   };
 
   const toggleMode = () => {

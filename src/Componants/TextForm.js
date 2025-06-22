@@ -5,11 +5,27 @@ export default function TextForm(props) {
   const textareaRef = useRef(null);
 
   const Uppercase = () => {
+    if (Text.length === 0) {
+      props.showAlert("Please enter text to convert!", "warning");
+      return;
+    }
+    if (Text === Text.toUpperCase()) {
+      props.showAlert("Text is already in uppercase!", "warning");
+      return;
+    }
     setText(Text.toUpperCase());
     props.showAlert("Converted to Uppercase!", "success");
   };
 
   const Lowercase = () => {
+    if (Text.length === 0) {
+      props.showAlert("Please enter text to convert!", "warning");
+      return;
+    }
+    if (Text === Text.toLowerCase()) {
+      props.showAlert("Text is already in lowercase!", "warning");
+      return;
+    }
     setText(Text.toLowerCase());
     props.showAlert("Converted to Lowercase!", "success");
   };
@@ -20,6 +36,14 @@ export default function TextForm(props) {
   };
 
   const Clear = () => {
+    if (Text.length === 0) {
+      props.showAlert("Please enter text to clear!", "warning");
+      return;
+    }
+    if (Text.length === 0) {
+      props.showAlert("Text is already cleared!", "warning");
+      return;
+    }
     setText("");
     props.showAlert("Text Cleared!", "danger");
   };
@@ -57,22 +81,19 @@ export default function TextForm(props) {
     }
   };
 
-  const voice = () => {
-    const speech = new SpeechSynthesisUtterance(Text);
-    speech.lang = "en-US"; 
-    speech.rate = 1; 
-    speech.pitch = 1;
-    window.speechSynthesis.speak(speech);
+  function voice(text) {
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(utterance);
+  } else {
+    console.warn('Speech synthesis not supported in this environment.');
   }
- 
-
-  
-  
+}
 
   const HandleChange = (event) => {
     setText(event.target.value);
   };
-
+  
   return (
     <div className="container my-3" style={{ color: props.mode === "dark" ? "white" : "#042743" }}>
       <h2>Enter the text to analyze below</h2>
@@ -96,7 +117,8 @@ export default function TextForm(props) {
       <button className="btn btn-primary mx-1" onClick={Reverse}>Reverse</button>
       <button className="btn btn-primary mx-1" onClick={Clear}>Clear</button>
       <button className="btn btn-primary mx-1" onClick={copyToClipboard}>Copy</button>
-      <button className="btn btn-primary mx-1" onClick={voice}>Read </button>
+      <button className="btn btn-primary mx-1" onClick={() => voice(Text)}>Read</button>
+
 
       <div className="container my-3">
         <p>
